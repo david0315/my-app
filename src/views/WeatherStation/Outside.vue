@@ -20,6 +20,15 @@
         align="center">
       </el-table-column>
     </el-table>
+    <el-date-picker
+      v-model="activeDate"
+      value-format="yyyy-MM-dd"
+      type="date"
+      placeholder="选择日期"
+      size="small"
+      class="date-picker"
+      :picker-options="pickerOptions">
+    </el-date-picker>
     <div class="chart" id="chart"></div>
   </el-card>
 </template>
@@ -31,7 +40,6 @@ const echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/line')
 // 以下的组件按需引入
 require('echarts/lib/component/tooltip')   // tooltip组件
-require('echarts/lib/component/title')   //  title组件
 
 export default {
   props: {
@@ -41,27 +49,37 @@ export default {
   },
   data() {
     return {
+      // 激活的日期
+      activeDate: '',
+      // 日历的设置
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
       // 激活的参数
       activeKey: 'temperature',
       // 折线图的基础设置
       option: {
-        title: {
-          text: '2019-12-05温度折线图',
-          // title往下移动6%调整位置
-          y: '6%'
-        },
         tooltip: {
-          trigger: 'axis'   // axis   item   none三个值
+          trigger: 'axis'
+        },
+        grid:{
+          y: '15%'
         },
         xAxis: {
+          name: '时间',
           type: 'category',
           boundaryGap: false,
+          // 假数据
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         },
         yAxis: {
+          name: '温度',
           type: 'value',
         },
         series: [{
+          // 假数据
           data: [820, 932, 901, 934, 1290, 1330, 1320],
           type: 'line'
         }]
@@ -71,10 +89,26 @@ export default {
     }
   },
   methods: {
+    // 获得当前时间
+    getNowDate() {
+      let date = new Date();
+      let seperator1 = "-";
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      let currentdate = year + seperator1 + month + seperator1 + strDate;
+      return currentdate;
+    },
     // 参数点击事件
     nameClick(scope) {
       // 修改title
-      this.option.title.text = scope.row.name;
+      this.option.yAxis.name = scope.row.name;
       // 重新绘制折线图
       this.draw();
     },
@@ -98,6 +132,7 @@ export default {
     }
   },
   activated() {
+    this.activeDate = this.getNowDate();
     this.getChartData(this.$store.state.activeId, this.activeKey);
     this.draw();
     // 每5秒更新一次数据
@@ -116,5 +151,8 @@ export default {
   /* 必须在组件内部就给高度，因为先渲染组件 */
   .chart {
     height: 300px;
+  }
+  .date-picker {
+    margin-top: 10px;
   }
 </style>

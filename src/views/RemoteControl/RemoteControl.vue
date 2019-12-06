@@ -19,9 +19,8 @@
           label="状态"
           align="center">
           <template slot-scope="scope">
-            <el-tag
-            type="success">
-              开启
+            <el-tag :type="scope.row.state===0?'success':(scope.row.state===1?'danger':'')">
+              {{scope.row.state===0?'开启':(scope.row.state===1?'关闭':'')}}
             </el-tag>
           </template>
         </el-table-column>
@@ -32,7 +31,7 @@
             <el-button
             size="medium"
             type="primary">
-              打开
+              开启
             </el-button>
             <el-button
             size="medium"
@@ -47,53 +46,77 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { get } from 'http';
+
 export default {
   data() {
     return {
       tableData: [{
         target: '外网',
-        state: true
+        state: null
       },{
         target: '天窗1',
-        state: false
+        state: null
       },{
         target: '天窗2',
-        state: false
+        state: null
       },{
         target: '内网',
-        state: false
+        state: null
       },{
         target: '风机1',
-        state: false
+        state: null
       },{
         target: '风机2',
-        state: false
+        state: null
       },{
         target: '风机3',
-        state: false
+        state: null
       },{
         target: '风机4',
-        state: false
+        state: null
       },{
         target: '水墙泵',
-        state: false
+        state: null
       },{
         target: '循环风机',
-        state: false
+        state: null
       },{
         target: '微喷泵',
-        state: false
+        state: null
       },{
         target: '侧窗',
-        state: false
+        state: null
       },{
         target: '总控',
-        state: false
+        state: null
       },{
         target: '总电源',
-        state: false
+        state: null
       }]
     }
+  },
+  methods: {
+    // 获得按钮的状态
+    getButtonState(id) {
+      axios({
+        url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.askButton',
+        params: {
+          fd_id: id
+        }
+      }).then(res => {
+        // console.log(res);
+        for (let i in this.tableData) {
+          this.tableData[i].state = res.data.data[i];
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+  },
+  activated() {
+    this.getButtonState(this.$store.state.activeId);
   }
 }
 </script>

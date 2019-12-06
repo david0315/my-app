@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <div class="logo">智慧植物工厂云平台</div>
+    <div class="id">{{$store.state.activeId}}</div>
   </div>
 </template>
 
@@ -24,5 +25,11 @@ export default {
     float: left;
     margin-left: 20px;
     line-height: 70px;
+  }
+  .id {
+    float: right;
+    margin-right: 20px;
+    line-height: 70px;
+    font-size: 20px;
   }
 </style>

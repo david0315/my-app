@@ -19,3 +19,9 @@ body {
 a {
   text-decoration: none
 }
+
+.clear::after {
+  content: "";
+  clear: both;
+  display: block;
+}
