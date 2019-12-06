@@ -30,12 +30,14 @@
           <template slot-scope="scope">
             <el-button
             size="medium"
-            type="primary">
+            type="primary"
+            @click="open(scope)">
               开启
             </el-button>
             <el-button
             size="medium"
-            type="danger">
+            type="danger"
+            @click="close(scope)">
               关闭
             </el-button>
           </template>
@@ -98,6 +100,20 @@ export default {
     }
   },
   methods: {
+    // 点击开启按钮
+    open(scope) {
+      // 按钮的十六进制码
+      // console.log(((scope.$index * 2 + 1)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
+      this.buttonClick(this.$store.state.activeId, ((scope.$index * 2 + 1)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
+      this.getButtonState(this.$store.state.activeId);
+    },
+    // 点击关闭按钮
+    close(scope) {
+      // 按钮的十六进制码
+      // console.log(((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 2).toString(16));
+      this.buttonClick(this.$store.state.activeId, ((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
+      this.getButtonState(this.$store.state.activeId);
+    },
     // 获得按钮的状态
     getButtonState(id) {
       axios({
@@ -110,6 +126,20 @@ export default {
         for (let i in this.tableData) {
           this.tableData[i].state = res.data.data[i];
         }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    // 按钮点击事件
+    buttonClick(id, cmd) {
+      axios({
+        url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.Button',
+        params: {
+          fd_id: id,
+          cmd: cmd
+        }
+      }).then(res => {
+        console.log(res);
       }).catch(err => {
         console.log(err);
       })

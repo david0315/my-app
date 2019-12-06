@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="hover">
     <div slot="header">
-      <span>气象站棚外参数</span>
+      <span>气象站棚外数据</span>
     </div>
     <el-table
       :data="info"
@@ -27,6 +27,7 @@
       placeholder="选择日期"
       size="small"
       class="date-picker"
+      @change="dateClick"
       :picker-options="pickerOptions">
     </el-date-picker>
     <div class="chart" id="chart"></div>
@@ -109,11 +110,20 @@ export default {
     nameClick(scope) {
       // 修改title
       this.option.yAxis.name = scope.row.name;
+      // 重新获得折线图数据
+      this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
+      // 重新绘制折线图
+      this.draw();
+    },
+    // 日期点击事件
+    dateClick() {
+      // 重新获得折线图数据
+      this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
       // 重新绘制折线图
       this.draw();
     },
     // 获得折线图的数据
-    getChartData(id, key) {
+    getChartData(id, key, date) {
       axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getData',
         params: {
@@ -133,11 +143,11 @@ export default {
   },
   activated() {
     this.activeDate = this.getNowDate();
-    this.getChartData(this.$store.state.activeId, this.activeKey);
+    this.getChartData(this.$store.state.activeId);
     this.draw();
     // 每5秒更新一次数据
     this.update = setInterval(() => {
-      this.getChartData(this.$store.state.activeId, this.activeKey);
+      this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
       this.draw();
     }, 5000);
   },

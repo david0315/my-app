@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
     clickMarker(state, payload) {
       state.activeId = payload;
-      console.log(state.activeId);
+      // console.log(state.activeId);
     },
     inputIdData(state, payload) {
       state.idData = payload;
