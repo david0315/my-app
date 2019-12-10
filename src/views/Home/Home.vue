@@ -10,7 +10,7 @@
     </el-row>
     <el-row :gutter="20">
       <el-col :span="24">
-        <div class="bottom-content">报警信息</div>
+        <x-warning></x-warning>
       </el-col>
     </el-row>
   </div>
@@ -18,10 +18,11 @@
 
 <script>
 import XMap from './Map.vue'
+import XWarning from './Warning.vue'
 
 export default {
   components: {
-    XMap
+    XMap, XWarning
   },
   data() {
     return {
@@ -37,10 +38,6 @@ export default {
   }
   .top-content {
     height: 400px;
-    background-color: #fff;
-  }
-  .bottom-content {
-    height: 300px;
     background-color: #fff;
   }
 </style>
