@@ -56,9 +56,9 @@ export default {
       activeDate: '',
       // 日历的设置
       pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-        }
+        // disabledDate(time) {
+        //   return time.getTime() > Date.now();
+        // }
       },
       // 激活的参数
       activeKey: 'temperature',
@@ -74,16 +74,14 @@ export default {
           name: '时间',
           type: 'category',
           boundaryGap: false,
-          // 假数据
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: [],
         },
         yAxis: {
           name: '温度',
           type: 'value',
         },
         series: [{
-          // 假数据
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: [],
           type: 'line'
         }]
       },
@@ -113,6 +111,7 @@ export default {
       // 修改title
       this.option.yAxis.name = scope.row.name;
       // 重新获得折线图数据
+      this.activeKey = scope.row.key;
       this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
       // 重新绘制折线图
       this.draw();
@@ -126,15 +125,19 @@ export default {
     },
     // 获得折线图的数据
     getChartData(id, key, date) {
+      console.log(this.activeDate);
       axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getData',
         params: {
-          fd_id: id,
-          start_date: date,
-          end_date: date
+          fd_id: id
         }
       }).then(res => {
         // console.log(res);
+        for (let i in res.data.data) {
+          this.option.xAxis.data[i] = res.data.data[i].date.substr(11, 8);
+          this.option.series[0].data[i] = res.data.data[i][key];
+        }
+        this.draw();
       }).catch(err => {
         console.log(err);
       })
@@ -147,13 +150,13 @@ export default {
   },
   activated() {
     this.activeDate = this.getNowDate();
-    this.getChartData(this.$store.state.activeId);
-    this.draw();
-    // 每5秒更新一次数据
+
+    this.getChartData(this.$store.state.activeId, this.activeKey);
+    // 每3秒更新一次数据
     this.update = setInterval(() => {
-      this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
-      this.draw();
-    }, 5000);
+      // console.log(this.activeKey)
+      this.getChartData(this.$store.state.activeId, this.activeKey);
+    }, 3000);
   },
   deactivated() {
     clearInterval(this.update);
