@@ -11,7 +11,9 @@
         label="参数"
         align="center">
         <template slot-scope="scope">
-          <el-button type="text" @click="nameClick(scope)">{{scope.row.name}}</el-button>
+          <!-- 风向不需要折线图 -->
+          <el-button type="text" @click="nameClick(scope)" v-if="scope.row.key != 'winddirection'">{{scope.row.name}}</el-button>
+          <span v-else>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -127,7 +129,9 @@ export default {
       axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getData',
         params: {
-          fd_id: id
+          fd_id: id,
+          start_date: date,
+          end_date: date
         }
       }).then(res => {
         // console.log(res);

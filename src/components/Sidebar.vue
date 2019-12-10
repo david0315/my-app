@@ -15,13 +15,13 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">气象站</span>
       </el-menu-item>
-      <el-menu-item index="3" disabled>
+      <el-menu-item index="soilindex">
         <i class="el-icon-tickets"></i>
-        <span slot="title">温室环境参数</span>
+        <span slot="title">土壤指标</span>
       </el-menu-item>
       <el-menu-item index="4" disabled>
         <i class="el-icon-tickets"></i>
-        <span slot="title">土壤指标</span>
+        <span slot="title">温室环境参数</span>
       </el-menu-item>
       <el-menu-item index="5" disabled>
         <i class="el-icon-tickets"></i>

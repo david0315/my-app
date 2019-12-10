@@ -21,6 +21,12 @@ const routes = [
     component: () => import('../views/WeatherStation/WeatherStation.vue')
   },
   {
+    path: '/soilindex',
+    name: 'soilindex',
+    meta: { title: '土壤指标' },
+    component: () => import('../views/SoilIndex/SoilIndex.vue')
+  },
+  {
     path: '/remotecontrol',
     name: 'remotecontrol',
     meta: { title: '远程控制台' },

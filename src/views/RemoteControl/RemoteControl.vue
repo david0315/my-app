@@ -111,7 +111,7 @@ export default {
     close(scope) {
       // 按钮的十六进制码
       // console.log(((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 2).toString(16));
-      this.buttonClick(this.$store.state.activeId, ((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
+      this.buttonClick(this.$store.state.activeId, ((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 2).toString(16));
       this.getButtonState(this.$store.state.activeId);
     },
     // 获得按钮的状态
@@ -136,7 +136,7 @@ export default {
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.Button',
         params: {
           fd_id: id,
-          cmd: cmd
+          cmd: 'e20204' + cmd
         }
       }).then(res => {
         console.log(res);
