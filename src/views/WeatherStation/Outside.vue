@@ -125,11 +125,14 @@ export default {
     },
     // 获得折线图的数据
     getChartData(id, key, date) {
-      console.log(this.activeDate);
+      // console.log(this.activeDate);
+      this.option.xAxis.data = [];
+      this.option.series[0].data = [];
       axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getData',
         params: {
-          fd_id: id
+          fd_id: id,
+          date: date
         }
       }).then(res => {
         // console.log(res);
@@ -151,11 +154,11 @@ export default {
   activated() {
     this.activeDate = this.getNowDate();
 
-    this.getChartData(this.$store.state.activeId, this.activeKey);
+    this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
     // 每3秒更新一次数据
     this.update = setInterval(() => {
       // console.log(this.activeKey)
-      this.getChartData(this.$store.state.activeId, this.activeKey);
+      this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
     }, 3000);
   },
   deactivated() {
