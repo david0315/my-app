@@ -6,32 +6,42 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/index'
   },
   {
-    path: '/home',
-    name: 'home',
-    meta: { title: '系统首页' },
-    component: () => import('../views/Home/Home.vue')
+    path: '/',
+    component: () => import('../components/Home.vue'),
+    children: [{
+      path: '/index',
+      name: 'index',
+      meta: { title: '系统首页' },
+      component: () => import('../views/Index/Index.vue')
+    },
+    {
+      path: '/weatherstation',
+      name: 'weatherstation',
+      meta: { title: '气象站' },
+      component: () => import('../views/WeatherStation/WeatherStation.vue')
+    },
+    {
+      path: '/soilindex',
+      name: 'soilindex',
+      meta: { title: '土壤指标' },
+      component: () => import('../views/SoilIndex/SoilIndex.vue')
+    },
+    {
+      path: '/remotecontrol',
+      name: 'remotecontrol',
+      meta: { title: '远程控制台' },
+      component: () => import('../views/RemoteControl/RemoteControl.vue')
+    }]
   },
   {
-    path: '/weatherstation',
-    name: 'weatherstation',
-    meta: { title: '气象站' },
-    component: () => import('../views/WeatherStation/WeatherStation.vue')
+    path: '/login',
+    name: 'login',
+    meta: { title: '登录界面' },
+    component: () => import('../views/Login/Login.vue')
   },
-  {
-    path: '/soilindex',
-    name: 'soilindex',
-    meta: { title: '土壤指标' },
-    component: () => import('../views/SoilIndex/SoilIndex.vue')
-  },
-  {
-    path: '/remotecontrol',
-    name: 'remotecontrol',
-    meta: { title: '远程控制台' },
-    component: () => import('../views/RemoteControl/RemoteControl.vue')
-  }
 ]
 
 const router = new VueRouter({
@@ -46,8 +56,19 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  //执行进入路由，如果不写就不会进入目标页
-  next()
+  next();
+  //判断用户是否登录，如果没登录则进入登录页
+  // if (to.path === '/login') {
+  //   next();
+  // } else {
+  //   let token = localStorage.getItem('Authorization');
+  //   console.log(token);
+  //   if (token === null || token === '') {
+  //     next('/login');
+  //   } else {
+  //     next();
+  //   }
+  // }
 })
 
 export default router

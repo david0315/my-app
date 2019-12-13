@@ -6,8 +6,9 @@
       background-color="#324157"
       text-color="#bfcbd9"
       active-text-color="#20a0ff"
-      router>
-      <el-menu-item index="home">
+      router
+      :collapse="!this.$store.state.userInfo.collapse">
+      <el-menu-item index="index">
         <i class="el-icon-house"></i>
         <span slot="title">系统首页</span>
       </el-menu-item>
@@ -53,7 +54,7 @@ export default {
   .sidebar::-webkit-scrollbar {
       width: 0;
   }
-  .sidebar-el-menu {
+  .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
   }
   .sidebar-el-menu {

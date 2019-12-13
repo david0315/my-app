@@ -48,9 +48,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { get } from 'http';
-
 export default {
   data() {
     return {
@@ -116,7 +113,7 @@ export default {
     },
     // 获得按钮的状态
     getButtonState(id) {
-      axios({
+      this.axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.askButton',
         params: {
           fd_id: id
@@ -132,7 +129,7 @@ export default {
     },
     // 按钮点击事件
     buttonClick(id, cmd) {
-      axios({
+      this.axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.Button',
         params: {
           fd_id: id,

@@ -1,11 +1,11 @@
 <template>
-  <div class="home">
+  <div class="index">
     <el-row :gutter="20" class="row">
       <el-col :span="14">
         <div class="top-content">监控</div>
       </el-col>
       <el-col :span="10">
-        <x-map class="top-content" :idData="this.$store.state.idData"></x-map>
+        <x-map class="top-content" :idData="this.$store.state.idData" v-if="this.$store.state.readyFlag"></x-map>
       </el-col>
     </el-row>
     <el-row :gutter="20">

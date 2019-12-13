@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 // vue文件中引入echarts工具
 const echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/line')
@@ -128,7 +127,7 @@ export default {
       // console.log(this.activeDate);
       this.option.xAxis.data = [];
       this.option.series[0].data = [];
-      axios({
+      this.axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getData',
         params: {
           fd_id: id,

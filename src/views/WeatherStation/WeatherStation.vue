@@ -19,7 +19,6 @@
 <script>
 import XOutside from './Outside.vue'
 import XInside from './Inside.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -66,7 +65,7 @@ export default {
   methods: {
     // 获得棚外参数
     getState(id) {
-      axios({
+      this.axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getRealTimeData',
         params: {
           fd_id: id
