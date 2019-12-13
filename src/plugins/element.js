@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { 
-  Button, Menu, MenuItem, Icon, Row, Col, Card, Breadcrumb, BreadcrumbItem, Tag, Table, TableColumn, DatePicker, Form, FormItem, Input
+  Button, Menu, MenuItem, Icon, Row, Col, Card, Breadcrumb, BreadcrumbItem, Tag, Table, TableColumn, DatePicker, Form, FormItem, Input, Dropdown, DropdownMenu, DropdownItem
 } from 'element-ui'
 
 Vue.use(Button)
@@ -19,3 +19,6 @@ Vue.use(DatePicker)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
