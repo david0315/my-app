@@ -11,19 +11,52 @@
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>修改名称</el-dropdown-item>
-        <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+        <el-dropdown-item command="changeName">修改名称</el-dropdown-item>
+        <el-dropdown-item divided command="loginOut">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    <!-- Form Start -->
+    <el-dialog title="修改名称" :visible.sync="dialogFormVisible" width="30%">
+      <el-form :model="form" label-width="70px">
+        <el-form-item label="新的名称">
+          <el-input v-model="form.userName" autocomplete="off" placeholder="请输入新的名称"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- Form End -->
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      dialogFormVisible: false,
+      form: {
+        userName: ''
+      }
+    }
+  },
   methods: {
     // 侧边栏折叠
     collapseChage() {
       this.$store.commit('collapseChage')
+    },
+    // 用户名下拉菜单选择事件
+    handleCommand(command) {
+      // 修改名称
+      if (command == 'changeName') {
+        this.dialogFormVisible = true
+      }
+      // 退出登录
+      else if (command == 'loginOut') {
+        localStorage.removeItem('user_token');
+        this.$router.push('/login');
+      }
     },
   }
 }

@@ -58,17 +58,17 @@ router.beforeEach((to, from, next) => {
   }
   next();
   //判断用户是否登录，如果没登录则进入登录页
-  // if (to.path === '/login') {
-  //   next();
-  // } else {
-  //   let token = localStorage.getItem('Authorization');
-  //   console.log(token);
-  //   if (token === null || token === '') {
-  //     next('/login');
-  //   } else {
-  //     next();
-  //   }
-  // }
+  if (to.path === '/login') {
+    next();
+  } else {
+    let token = localStorage.getItem('user_token');
+    console.log(token);
+    if (token === null || token === '') {
+      next('/login');
+    } else {
+      next();
+    }
+  }
 })
 
 export default router

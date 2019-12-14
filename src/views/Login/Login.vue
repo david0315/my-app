@@ -38,16 +38,18 @@ export default {
   methods: {
     // 提交表单
     submitForm() {
-      this.axios({
-        url: '',
-        username,
-        password
-      }).then(res => {
-        console.log(res);
-        this.$store.commit('getUserInfo', res.data.data.token);
-      }).catch(err => {
-        console.log(err)
-      })
+      localStorage.setItem('user_token', 'aaa');
+      this.$router.push('/');
+      // this.axios({
+      //   url: '',
+      //   username,
+      //   password
+      // }).then(res => {
+      //   console.log(res);
+      //   this.$store.commit('getUserInfo', res.data.data.token);
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     },
   },
 }
