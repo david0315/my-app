@@ -31,8 +31,8 @@ export default {
   data() {
     return {
       param: {
-        username: "",
-        password: ""
+        account: '',
+        password: ''
       },
       rules: {
         username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
@@ -46,18 +46,21 @@ export default {
       if (this.param.username === '' || this.param.password === '') {
         alert('账号或密码不能为空');
       } else {
-        localStorage.setItem("user_token", "aaa");
-        this.$router.push("/");
-        // this.axios({
-        //   url: '',
-        //   username,
-        //   password
-        // }).then(res => {
-        //   console.log(res);
-        //   this.$store.commit('getUserInfo', res.data.data.token);
-        // }).catch(err => {
-        //   console.log(err)
-        // })
+        this.axios({
+          url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.loginUser',
+          account: this.param.account,
+          password: this.param.password
+        }).then(res => {
+          console.log(res);
+          if (res.data.appcode === '1') {
+            localStorage.setItem("user_token", res.data.data.token);
+            this.$router.push("/");
+          } else if (res.data.appcode === '-1') {
+            alert(res.data.appmsg);
+          }
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   }
