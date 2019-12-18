@@ -73,7 +73,11 @@ export default {
       }).then(res => {
         // console.log(res);
         for (let i in this.outsideInfo) {
-          this.outsideInfo[i].value = res.data.data[this.outsideInfo[i].key];
+          if (this.outsideInfo[i].key == 'humidity') {
+            this.outsideInfo[i].value = res.data.data[this.outsideInfo[i].key].substr(0, res.data.data[this.outsideInfo[i].key].length - 1);
+          } else {
+            this.outsideInfo[i].value = res.data.data[this.outsideInfo[i].key];
+          }
         }
       }).catch(err => {
         console.log(err)
