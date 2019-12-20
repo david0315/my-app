@@ -16,7 +16,7 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">气象站</span>
       </el-menu-item>
-      <el-menu-item index="soilindex">
+      <el-menu-item index="soilindex" disabled>
         <i class="el-icon-tickets"></i>
         <span slot="title">土壤指标</span>
       </el-menu-item>
@@ -28,7 +28,7 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">农作物生长参数</span>
       </el-menu-item>
-      <el-menu-item index="remotecontrol">
+      <el-menu-item index="remotecontrol" disabled>
         <i class="el-icon-setting"></i>
         <span slot="title">远程控制台</span>
       </el-menu-item>
