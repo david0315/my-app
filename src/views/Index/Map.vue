@@ -1,8 +1,11 @@
 <template>
   <baidu-map class="map" ak="Ps7d8xotpfXbGNyjljFhqoPH52dCGHjv" :center="center" :zoom="zoom"
   :scroll-wheel-zoom="true" :map-click="false" @ready="handler">
-    <bm-marker v-for="(x, i) in idData" :position="{lng: x.lon, lat: x.lat}" :key="i" @click="clickMarker(x.fd_id)">
-      <bm-label :content="x.fd_id" :labelStyle="{color: 'red', fontSize : '12px'}" :offset="{width: -23, height: 35}"/>
+    <bm-marker v-for="(x, i) in ohtersInfo" :position="{lng: x.lon, lat: x.lat}" :key="i">
+      <bm-label :content="x.name" :labelStyle="{color: 'red', fontSize : '12px'}" :offset="{width: -(x.name.length-1)/2*12, height: 35}"/>
+    </bm-marker>
+    <bm-marker :position="{lng: userInfo.lon, lat: userInfo.lat}">
+      <bm-label :content="userInfo.name" :labelStyle="{color: 'blue',border: '1px solid blue', fontSize : '12px'}" :offset="{width: -(userInfo.name.length-1)/2*12, height: 35}"/>
     </bm-marker>
   </baidu-map>
 </template>
@@ -17,7 +20,10 @@ export default {
     BaiduMap, BmMarker, BmLabel
   },
   props: {
-    idData: {
+    userInfo: {
+      type: Object
+    },
+    ohtersInfo: {
       type: Array
     }
   },
@@ -29,15 +35,10 @@ export default {
   },
   methods: {
     handler() {
-      this.center.lng = this.idData[0].lon;
-      this.center.lat = this.idData[0].lat;
-      this.zoom = 15;
+      this.center.lng = this.userInfo.lon;
+      this.center.lat = this.userInfo.lat;
+      this.zoom = 7;
     },
-    // 坐标点击事件
-    clickMarker(id) {
-      // console.log(id);
-      this.$store.commit('clickMarker', id);
-    }
   }
 }
 </script>

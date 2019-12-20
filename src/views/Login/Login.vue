@@ -3,8 +3,8 @@
     <div class="ms-login">
       <div class="ms-title">智慧植物工厂云平台</div>
       <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-        <el-form-item prop="username">
-          <el-input v-model="param.username" placeholder="输入用户名">
+        <el-form-item prop="account">
+          <el-input v-model="param.account" placeholder="输入用户名">
             <el-button slot="prepend" icon="el-icon-user"></el-button>
           </el-input>
         </el-form-item>
@@ -13,8 +13,7 @@
             type="password"
             placeholder="输入密码"
             v-model="param.password"
-            @keyup.enter.native="submitForm()"
-          >
+            @keyup.enter.native="submitForm()">
             <el-button slot="prepend" icon="el-icon-lock"></el-button>
           </el-input>
         </el-form-item>
@@ -35,7 +34,7 @@ export default {
         password: ''
       },
       rules: {
-        username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+        account: [{ required: true, message: "请输入用户名", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
@@ -43,15 +42,17 @@ export default {
   methods: {
     // 提交表单
     submitForm() {
-      if (this.param.username === '' || this.param.password === '') {
+      if (this.param.account === '' || this.param.password === '') {
         alert('账号或密码不能为空');
       } else {
         this.axios({
-          url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.loginUser',
-          account: this.param.account,
-          password: this.param.password
+          url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.loginUser1',
+          params: {
+            account: this.param.account,
+            password: this.param.password
+          }
         }).then(res => {
-          console.log(res);
+          // console.log(res);
           if (res.data.appcode === '1') {
             localStorage.setItem("user_token", res.data.data.token);
             this.$router.push("/");
@@ -62,7 +63,7 @@ export default {
           console.log(err)
         })
       }
-    }
+    },
   }
 };
 </script>

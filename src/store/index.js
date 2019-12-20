@@ -7,22 +7,35 @@ export default new Vuex.Store({
   state: {
     // 用户信息
     userInfo: {
-      // 用户身份的token
-      token: '',
       // 左侧菜单是否折叠
-      collapse: true
+      collapse: true,
+      // 用户名称
+      name: '',
+      // 经纬度
+      lon: '',
+      lat: '',
     },
+    // 其他用户信息
+    othersInfo: [],
     // 地图是否准备就绪
     readyFlag: false,
-    // 激活的id
-    activeId: '',
-    // 所有的id和坐标
-    idData: []
   },
   mutations: {
-    // 存储用户信息
+    // 修改用户名称
+    changeUserName(state, payload) {
+      state.userInfo.name = payload
+    },
+    // 获得用户信息
     getUserInfo(state, payload) {
-      state.userInfo.token = payload
+      state.userInfo.name = payload.name;
+      state.userInfo.lon = payload.lon;
+      state.userInfo.lat = payload.lat;
+      // console.log(state.userInfo);
+    },
+    // 获得其他用户信息
+    getOthersInfo(state, payload) {
+      state.othersInfo = payload;
+      // console.log(state.otherUserInfo);
     },
     // 折叠/拉出左侧菜单
     collapseChage(state) {
@@ -31,13 +44,6 @@ export default new Vuex.Store({
     // state中的状态必须由mutations中的对应函数来修改
     ready(state) {
       state.readyFlag = true;
-    },
-    clickMarker(state, payload) {
-      state.activeId = payload;
-      // console.log(state.activeId);
-    },
-    inputIdData(state, payload) {
-      state.idData = payload;
     }
   },
   actions: {

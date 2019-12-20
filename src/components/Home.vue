@@ -18,8 +18,38 @@ export default {
   components: {
     XHeader,
     XSidebar
+  },
+  methods: {
+    // 获得信息(坐标、名称等)
+    getInfo() {
+      this.axios({
+        url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getaccountCoordinate',
+        params: {
+          token: localStorage.getItem('user_token')
+        }
+      }).then(res => {
+        console.log(res);
+        this.getUserInfo(res.data.data1);
+        this.getOthersInfo(res.data.data);
+        this.$store.commit('ready');
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 获得用户信息
+    getUserInfo(info) {
+      this.$store.commit('getUserInfo', info[0]);
+    },
+    // 获得其他用户信息
+    getOthersInfo(info) {
+      this.$store.commit('getOthersInfo', info);
+    },
+  },
+  created() {
+    this.getInfo();
   }
-};
+}
+
 </script>
 
 <style>

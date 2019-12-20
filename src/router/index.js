@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     let token = localStorage.getItem('user_token');
-    console.log(token);
+    // console.log(token);
     if (token === null || token === '') {
       next('/login');
     } else {

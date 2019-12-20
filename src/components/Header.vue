@@ -1,13 +1,13 @@
 <template>
   <div class="header">
     <div class="collapse-btn" @click="collapseChage">
-      <i v-if="!this.$store.state.userInfo.collapse" class="el-icon-s-fold"></i>
+      <i v-if="this.$store.state.userInfo.collapse" class="el-icon-s-fold"></i>
       <i v-else class="el-icon-s-unfold"></i>
     </div>
     <div class="logo">智慧植物工厂云平台</div>
     <el-dropdown class="id" trigger="click" @command="handleCommand">
       <span class="el-dropdown-link">
-        {{$store.state.activeId}}
+        {{$store.state.userInfo.name}}
         <i class="el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -19,12 +19,12 @@
     <el-dialog title="修改名称" :visible.sync="dialogFormVisible" width="30%">
       <el-form :model="form" label-width="70px">
         <el-form-item label="新的名称">
-          <el-input v-model="form.userName" autocomplete="off" placeholder="请输入新的名称"></el-input>
+          <el-input v-model="form.newName" autocomplete="off" placeholder="请输入新的名称"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="changeName()">确 定</el-button>
       </div>
     </el-dialog>
     <!-- Form End -->
@@ -37,7 +37,7 @@ export default {
     return {
       dialogFormVisible: false,
       form: {
-        userName: ''
+        newName: ''
       }
     }
   },
@@ -58,6 +58,32 @@ export default {
         this.$router.push('/login');
       }
     },
+    // 提交修改名称表单
+    changeName() {
+      if (this.form.newName === '') {
+        alert('名称不能为空');
+      } else {
+        this.axios({
+          url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.changename',
+          params: {
+            token: localStorage.getItem('user_token'),
+            name: this.form.newName
+          }
+        }).then(res => {
+          console.log(res);
+          if (res.data.appcode == '1') {
+            this.dialogFormVisible = false;
+            this.changeUserName(this.form.newName);
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    },
+    // 更改用户名称
+    changeUserName(name) {
+      this.$store.commit('changeUserName', name);
+    }
   }
 }
 </script>
