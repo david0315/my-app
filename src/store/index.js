@@ -14,11 +14,13 @@ export default new Vuex.Store({
       // 经纬度
       lon: '',
       lat: '',
+      // 设备id
+      id: [],
     },
     // 其他用户信息
     othersInfo: [],
     // 地图是否准备就绪
-    readyFlag: false,
+    mapFlag: false,
   },
   mutations: {
     // 修改用户名称
@@ -37,13 +39,17 @@ export default new Vuex.Store({
       state.othersInfo = payload;
       // console.log(state.otherUserInfo);
     },
+    // 获得用户的所有硬件id
+    getUserId(state, payload) {
+      state.userInfo.id = payload;
+    },
     // 折叠/拉出左侧菜单
     collapseChage(state) {
       state.userInfo.collapse = !state.userInfo.collapse
     },
     // state中的状态必须由mutations中的对应函数来修改
     ready(state) {
-      state.readyFlag = true;
+      state.mapFlag = true;
     }
   },
   actions: {

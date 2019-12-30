@@ -2,10 +2,10 @@
   <div class="index">
     <el-row :gutter="20" class="row">
       <el-col :span="14">
-        <div class="top-content">监控</div>
+        <div class="top-content video"></div>
       </el-col>
       <el-col :span="10">
-        <x-map class="top-content" :userInfo="this.$store.state.userInfo" :ohtersInfo="this.$store.state.othersInfo" v-if="this.$store.state.readyFlag"></x-map>
+        <x-map class="top-content" :userInfo="this.$store.state.userInfo" :ohtersInfo="this.$store.state.othersInfo" v-if="this.$store.state.mapFlag"></x-map>
       </el-col>
     </el-row>
     <el-row :gutter="20">
@@ -40,7 +40,12 @@ export default {
     margin-bottom: 20px;
   }
   .top-content {
-    height: 400px;
+    height: 500px;
     background-color: #fff;
+  }
+  .video {
+    background: url("../../assets/img/greenhouse_monitoring.jpg");
+    background-size: 100% 100%;
+    cursor: pointer;
   }
 </style>

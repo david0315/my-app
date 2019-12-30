@@ -28,10 +28,24 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.getUserInfo(res.data.data1);
         this.getOthersInfo(res.data.data);
         this.$store.commit('ready');
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 获得用户的所有硬件id
+    getId() {
+      this.axios({
+        url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getrealtimedata',
+        params: {
+          token: localStorage.getItem('user_token')
+        }
+      }).then(res => {
+        console.log(res);
+        this.getUserId(res.data.data);
       }).catch(err => {
         console.log(err)
       })
@@ -44,9 +58,14 @@ export default {
     getOthersInfo(info) {
       this.$store.commit('getOthersInfo', info);
     },
+    // 获得用户的所有硬件id
+    getUserId(id) {
+      this.$store.commit('getUserId', id);
+    },
   },
   created() {
     this.getInfo();
+    this.getId();
   }
 }
 
