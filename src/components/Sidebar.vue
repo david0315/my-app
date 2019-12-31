@@ -16,21 +16,25 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">气象站</span>
       </el-menu-item>
-      <el-menu-item index="soilindex" disabled>
+      <el-menu-item index="soil">
         <i class="el-icon-tickets"></i>
         <span slot="title">土壤指标</span>
       </el-menu-item>
-      <el-menu-item index="4" disabled>
+      <el-menu-item index="greenhouse">
         <i class="el-icon-tickets"></i>
         <span slot="title">温室环境参数</span>
       </el-menu-item>
-      <el-menu-item index="5" disabled>
+      <el-menu-item index="crops">
         <i class="el-icon-tickets"></i>
         <span slot="title">农作物生长参数</span>
       </el-menu-item>
       <el-menu-item index="remotecontrol" disabled>
         <i class="el-icon-setting"></i>
         <span slot="title">远程控制台</span>
+      </el-menu-item>
+      <el-menu-item index="video">
+        <i class="el-icon-video-camera"></i>
+        <span slot="title">现场监控</span>
       </el-menu-item>
     </el-menu>
   </div>

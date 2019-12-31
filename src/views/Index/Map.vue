@@ -44,6 +44,10 @@ export default {
 </script>
 
 <style scoped>
+  .map {
+    width: 100%;
+    height: 100%;
+  }
   /* 隐藏百度logo */
   /deep/.BMap_cpyCtrl {
       display: none!important;

@@ -24,16 +24,34 @@ const routes = [
       component: () => import('../views/WeatherStation/WeatherStation.vue')
     },
     {
-      path: '/soilindex',
-      name: 'soilindex',
+      path: '/soil',
+      name: 'soil',
       meta: { title: '土壤指标' },
-      component: () => import('../views/SoilIndex/SoilIndex.vue')
+      component: () => import('../views/Soil/Soil.vue')
+    },
+    {
+      path: '/greenhouse',
+      name: 'greenhouse',
+      meta: { title: '温室环境参数' },
+      component: () => import('../views/Greenhouse/Greenhouse.vue')
+    },
+    {
+      path: '/crops',
+      name: 'crops',
+      meta: { title: '农作物生长参数' },
+      component: () => import('../views/Crops/Crops.vue')
     },
     {
       path: '/remotecontrol',
       name: 'remotecontrol',
       meta: { title: '远程控制台' },
       component: () => import('../views/RemoteControl/RemoteControl.vue')
+    },
+    {
+      path: '/video',
+      name: 'video',
+      meta: { title: '现场监控' },
+      component: () => import('../views/Video/Video.vue')
     }]
   },
   {

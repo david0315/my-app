@@ -1,18 +1,22 @@
 <template>
   <div class="index">
-    <el-row :gutter="20" class="row">
-      <el-col :span="14">
-        <div class="top-content video"></div>
-      </el-col>
-      <el-col :span="10">
-        <x-map class="top-content" :userInfo="this.$store.state.userInfo" :ohtersInfo="this.$store.state.othersInfo" v-if="this.$store.state.mapFlag"></x-map>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :span="24">
-        <x-warning></x-warning>
-      </el-col>
-    </el-row>
+    <div class="top-content">
+      <div class="video-content" @click="videoClick">
+        <iframe
+          src="https://open.ys7.com/ezopen/h5/iframe?url=ezopen://open.ys7.com/203751922/1.live&autoplay=1&accessToken=ra.23xamzw35p27yshy6ea2hvud3riulmqo-173c7qgql3-0lxt9kc-jkzzoodlk"
+          width="750"
+          height="500"
+          id="ysOpenDevice"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="map-content">
+        <x-map :userInfo="this.$store.state.userInfo" :ohtersInfo="this.$store.state.othersInfo" v-if="this.$store.state.mapFlag"></x-map>
+      </div>
+    </div>
+    <div class="bottom-content">
+      <x-warning></x-warning>
+    </div>  
   </div>
 </template>
 
@@ -30,7 +34,10 @@ export default {
     }
   },
   methods: {
-    
+    videoClick() {
+      let video = document.querySelector('#ysOpenDevice');
+      video.style.display = 'block';
+    }
   }
 }
 </script>
@@ -40,12 +47,18 @@ export default {
     margin-bottom: 20px;
   }
   .top-content {
+    display: flex;
     height: 500px;
-    background-color: #fff;
+    margin-bottom: 20px;
   }
-  .video {
+  .video-content {
     background: url("../../assets/img/greenhouse_monitoring.jpg");
     background-size: 100% 100%;
     cursor: pointer;
+    width: 750px;
+    margin-right: 20px;
+  }
+  .map-content {
+    flex: 1;
   }
 </style>

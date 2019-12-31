@@ -59,9 +59,6 @@ export default {
         tooltip: {
           trigger: "axis"
         },
-        grid: {
-          y: "15%"
-        },
         xAxis: {
           name: "时间",
           type: "category",
@@ -126,8 +123,7 @@ export default {
       this.option.xAxis.data = [];
       this.option.series[0].data = [];
       this.axios({
-        url:
-          "http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getDatasnqx",
+        url: "http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getDataswqx",
         params: {
           token: localStorage.getItem('user_token'),
           fd_id: id,
@@ -137,11 +133,7 @@ export default {
         // console.log(res);
         for (let i in res.data.data) {
           this.option.xAxis.data[i] = res.data.data[i].date.substr(11, 8);
-          if (key == 'humidity') {
-            this.option.series[0].data[i] = res.data.data[i][key].substr(0,res.data.data[i][key].length-1);
-          } else {
-            this.option.series[0].data[i] = res.data.data[i][key];
-          }
+          this.option.series[0].data[i] = res.data.data[i][key];
         }
         this.draw();
       }).catch(err => {
