@@ -28,13 +28,13 @@
         <i class="el-icon-tickets"></i>
         <span slot="title">农作物生长参数</span>
       </el-menu-item>
-      <el-menu-item index="remotecontrol" disabled>
-        <i class="el-icon-setting"></i>
-        <span slot="title">远程控制台</span>
-      </el-menu-item>
       <el-menu-item index="video">
         <i class="el-icon-video-camera"></i>
         <span slot="title">现场监控</span>
+      </el-menu-item>
+      <el-menu-item index="remotecontrol">
+        <i class="el-icon-setting"></i>
+        <span slot="title">远程控制台</span>
       </el-menu-item>
     </el-menu>
   </div>

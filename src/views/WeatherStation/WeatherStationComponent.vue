@@ -11,7 +11,7 @@
               <el-button
                 type="text"
                 @click="stateClick(scope)"
-                v-if="scope.row.key != 'winddirection' || scope.row.value === ''">
+                v-if="scope.row.key != 'winddirection' && scope.row.value !== ''">
                 {{scope.row.name}}
               </el-button>
               <span v-else>{{scope.row.name}}</span>
@@ -59,6 +59,12 @@ export default {
         tooltip: {
           trigger: "axis"
         },
+        grid: {
+          x: 40,
+          y: 40,
+          x2: 40,
+          y2: 40
+        },
         xAxis: {
           name: "时间",
           type: "category",
@@ -79,7 +85,7 @@ export default {
         ]
       },
       // 定时器的名称
-      update: null
+      // update: null
     }
   },
   computed: {
@@ -178,15 +184,15 @@ export default {
     this.activeDate = this.getNowDate();
     this.getChartData(this.info.fd_id, this.activeKey, this.activeDate);
   },
-  activated() {
-    // 每5秒更新一次数据
-    this.update = setInterval(() => {
-      this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
-    }, 5000);
-  },
-  deactivated() {
-    clearInterval(this.update);
-  }
+  // activated() {
+  //   // 每5秒更新一次数据
+  //   this.update = setInterval(() => {
+  //     this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
+  //   }, 5000);
+  // },
+  // deactivated() {
+  //   clearInterval(this.update);
+  // }
 }
 </script>
 

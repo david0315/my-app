@@ -42,9 +42,10 @@ export default {
         }
       }).then(res => {
         // console.log(res);
+        this.weatherStationState = [];
         for (let i in res.data.data) {
           if (res.data.data[i].species == 'weather_station') {
-            this.weatherStationState[i] = res.data.data[i]
+            this.weatherStationState.push(res.data.data[i]);
           }
         }
         this.weatherStationFlag = true;
@@ -57,6 +58,7 @@ export default {
     this.getWeatherStationState();
     // 每5秒更新一次数据
     this.update = setInterval(() => {
+      console.log('更新数据！');
       this.getWeatherStationState();
     }, 5000);
   },

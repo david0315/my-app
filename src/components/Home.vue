@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import XHeader from "./Header.vue";
-import XSidebar from "./Sidebar.vue";
+import XHeader from './Header.vue';
+import XSidebar from './Sidebar.vue';
+import qs from 'qs';
 
 export default {
   components: {
@@ -29,9 +30,9 @@ export default {
         }
       }).then(res => {
         // console.log(res);
-        this.getUserInfo(res.data.data1);
-        this.getOthersInfo(res.data.data);
-        this.$store.commit('ready');
+        this.$store.commit('getUserInfo', res.data.data1[0]);
+        this.$store.commit('getOthersInfo', res.data.data);
+        this.$store.commit('mapReady');
       }).catch(err => {
         console.log(err)
       })
@@ -44,28 +45,54 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        console.log(res);
-        this.getUserId(res.data.data);
+        // console.log(res);
+        this.$store.commit('getUserId', res.data.data);
       }).catch(err => {
         console.log(err)
       })
     },
-    // 获得用户信息
-    getUserInfo(info) {
-      this.$store.commit('getUserInfo', info[0]);
+    // 获得监控accessToken
+    getAccessToken(key, secret) {
+      this.axios({
+        method: 'post',
+        url: 'https://open.ys7.com/api/lapp/token/get',
+        data: qs.stringify({appKey: key, appSecret: secret}),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(res => {
+        // console.log(res);
+        if (res.data.code == '200') {
+          this.$store.commit('getAccessToken', res.data.data.accessToken);
+          this.getCameraList(this.$store.state.userInfo.accessToken);
+        } else {
+          alert(res.data.msg);
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    // 获得其他用户信息
-    getOthersInfo(info) {
-      this.$store.commit('getOthersInfo', info);
-    },
-    // 获得用户的所有硬件id
-    getUserId(id) {
-      this.$store.commit('getUserId', id);
-    },
+    // 获得摄像头列表
+    getCameraList(token) {
+      this.axios({
+        method: 'post',
+        url: 'https://open.ys7.com/api/lapp/camera/list',
+        data: qs.stringify({accessToken: token}),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      }).then(res => {
+        // console.log(res);
+        if (res.data.code == '200') {
+          this.$store.commit('getCameraList', res.data.data);
+        } else {
+          alert(res.data.msg);
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   },
   created() {
     this.getInfo();
     this.getId();
+    this.getAccessToken('1ed6d02d30c542649ab068d3d36b0ef2', 'ff817b069d5aaa4630c244e3324f1e0c');
   }
 }
 

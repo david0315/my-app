@@ -16,11 +16,17 @@ export default new Vuex.Store({
       lat: '',
       // 设备id
       id: [],
+      // 萤石云平台AccessToken
+      accessToken: '',
+      // 摄像头列表
+      cameraList: []
     },
     // 其他用户信息
     othersInfo: [],
     // 地图是否准备就绪
     mapFlag: false,
+    // 监控是否准备就绪
+    videoFlag: false
   },
   mutations: {
     // 修改用户名称
@@ -47,9 +53,21 @@ export default new Vuex.Store({
     collapseChage(state) {
       state.userInfo.collapse = !state.userInfo.collapse
     },
-    // state中的状态必须由mutations中的对应函数来修改
-    ready(state) {
+    // 地图准备就绪
+    mapReady(state) {
       state.mapFlag = true;
+    },
+    // 获得AccessToken
+    getAccessToken(state, payload) {
+      state.userInfo.accessToken = payload;
+    },
+    // 获得摄像头列表
+    getCameraList(state, payload) {
+      for (let i in payload) {
+        state.userInfo.cameraList[i] = payload[i];
+      }
+      // 监控准备就绪
+      state.videoFlag = true;
     }
   },
   actions: {
