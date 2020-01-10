@@ -1,3 +1,9 @@
+首页
+![Image text](img_folder/home.png)
+气象站页面
+![Image text](img_folder/weather_station.png)
+监控页面
+![Image text](img_folder/video.png)
 # my-app
 
 ## Project setup
