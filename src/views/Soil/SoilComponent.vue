@@ -87,7 +87,7 @@ export default {
     }
   },
   computed: {
-    // 气象站参数
+    // 土壤指标参数
     soilState() {
       return [{
         name: '温度',
@@ -122,7 +122,7 @@ export default {
           date: date
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         for (let i in res.data.data) {
           this.option.xAxis.data[i] = res.data.data[i].date.substr(11, 8);
           this.option.series[0].data[i] = res.data.data[i][key];

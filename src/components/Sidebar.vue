@@ -2,12 +2,12 @@
   <div class="sidebar">
     <el-menu
       class="sidebar-el-menu"
-      default-active="1"
+      :default-active="onRoutes"
       background-color="#324157"
       text-color="#bfcbd9"
       active-text-color="#20a0ff"
       router
-      :collapse="!this.$store.state.userInfo.collapse">
+      :collapse="!this.$store.state.collapse">
       <el-menu-item index="index">
         <i class="el-icon-house"></i>
         <span slot="title">系统首页</span>
@@ -36,13 +36,21 @@
         <i class="el-icon-setting"></i>
         <span slot="title">远程控制台</span>
       </el-menu-item>
+      <el-menu-item index="brain">
+        <i class="el-icon-cpu"></i>
+        <span slot="title">智慧农业大脑</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
 export default {
-
+  computed: {
+    onRoutes() {
+      return this.$route.path.replace('/', '');
+    }
+  },
 }
 </script>
 

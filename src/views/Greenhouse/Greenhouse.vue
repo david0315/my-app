@@ -5,13 +5,23 @@
         <el-breadcrumb-item><i class="el-icon-tickets"></i> 温室环境参数</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="container">
+    <div v-if="greenhouseFlag" class="content">
+      <el-row :gutter="20" v-for="(x, i) in greenhouseState" :key="i" class="row">
+        <el-col :span="24">
+          <x-greenhouse :info="x"></x-greenhouse>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
 
 <script>
+import XGreenhouse from './GreenhouseComponent.vue'
+
 export default {
+  components: {
+    XGreenhouse
+  },
   data() {
     return {
       // 温室环境参数是否准备就绪
@@ -31,13 +41,14 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        // console.log(res);
+        console.log(res);
         this.greenhouseState = [];
         for (let i in res.data.data) {
-          if (res.data.data[i].species == 'oil') {
+          if (res.data.data[i].species == 'greenhouse') {
             this.greenhouseState.push(res.data.data[i]);
           }
         }
+        console.log(this.greenhouseState);
         this.greenhouseFlag = true;
       }).catch(err => {
         console.log(err)
@@ -46,11 +57,11 @@ export default {
   },
   activated() {
     this.getGreenhouseState();
-    // 每5秒更新一次数据
+    // 每10秒更新一次数据
     this.update = setInterval(() => {
       console.log('更新数据！');
       this.getGreenhouseState();
-    }, 5000);
+    }, 10000);
   },
   deactivated() {
     clearInterval(this.update);

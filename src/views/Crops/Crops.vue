@@ -5,13 +5,23 @@
         <el-breadcrumb-item><i class="el-icon-tickets"></i> 农作物生长参数</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="container">
+    <div v-if="cropsFlag" class="content">
+      <el-row :gutter="20" v-for="(x, i) in cropsState" :key="i" class="row">
+        <el-col :span="24">
+          <x-crops :info="x"></x-crops>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
 
 <script>
+import XCrops from './CropsComponent.vue'
+
 export default {
+  components: {
+    XCrops
+  },
   data() {
     return {
       // 农作物生长参数是否准备就绪
@@ -31,13 +41,14 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        // console.log(res);
+        console.log(res);
         this.cropsState = [];
         for (let i in res.data.data) {
-          if (res.data.data[i].species == 'oil') {
+          if (res.data.data[i].species == 'crops') {
             this.cropsState.push(res.data.data[i]);
           }
         }
+        console.log(this.cropsState);
         this.cropsFlag = true;
       }).catch(err => {
         console.log(err)
@@ -46,11 +57,11 @@ export default {
   },
   activated() {
     this.getCropsState();
-    // 每5秒更新一次数据
+    // 每10秒更新一次数据
     this.update = setInterval(() => {
       console.log('更新数据！');
       this.getCropsState();
-    }, 5000);
+    }, 10000);
   },
   deactivated() {
     clearInterval(this.update);

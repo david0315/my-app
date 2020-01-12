@@ -2,14 +2,15 @@
   <div class="index">
     <div class="top-content">
       <div class="video-content" @click="videoClick">
-        <iframe :src="src" width="750" height="500" allowfullscreen v-if="$store.state.videoFlag && videoFlag"></iframe>
+        <iframe :src="src" width="750" height="500" allowfullscreen v-if="$store.state.videoFlag"></iframe>
       </div>
       <div class="map-content">
         <x-map :userInfo="this.$store.state.userInfo" :ohtersInfo="this.$store.state.othersInfo" v-if="this.$store.state.mapFlag"></x-map>
       </div>
     </div>
     <div class="bottom-content">
-      <x-warning></x-warning>
+      <div class="brain-content" @click="brainClick"></div>
+      <x-warning class="warning-content"></x-warning>
     </div>  
   </div>
 </template>
@@ -35,6 +36,9 @@ export default {
   methods: {
     videoClick() {
       this.videoFlag = true;
+    },
+    brainClick() {
+      this.$router.push('/brain');
     }
   },
   deactivated() {
@@ -53,7 +57,7 @@ export default {
     margin-bottom: 20px;
   }
   .video-content {
-    background: url("../../assets/img/greenhouse_monitoring.jpg");
+    background: url("../../assets/img/index-video.jpg");
     background-size: 100% 100%;
     cursor: pointer;
     width: 750px;
@@ -61,5 +65,19 @@ export default {
   }
   .map-content {
     flex: 1;
+  }
+  .bottom-content {
+    display: flex;
+  }
+  .brain-content {
+    background: url("../../assets/img/index-intellectual_brain.jpg");
+    background-size: 100% 100%;
+    cursor: pointer;
+    width: 750px;
+    height: 300px;
+    margin-right: 20px;
+  }
+  .warning-content {
+    flex: 1
   }
 </style>

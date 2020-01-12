@@ -2,7 +2,7 @@
   <div class="home">
     <x-header></x-header>
     <x-sidebar></x-sidebar>
-    <div class="content-box" :class="{'content-collapse':!this.$store.state.userInfo.collapse}">
+    <div class="content-box" :class="{'content-collapse':!this.$store.state.collapse}">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>

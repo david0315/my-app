@@ -55,7 +55,8 @@ export default {
       // 退出登录
       else if (command == 'loginOut') {
         localStorage.removeItem('user_token');
-        this.$router.push('/login');
+        // 刷新页面
+        this.$router.go(0);
       }
     },
     // 提交修改名称表单
@@ -73,7 +74,8 @@ export default {
           console.log(res);
           if (res.data.appcode == '1') {
             this.dialogFormVisible = false;
-            this.changeUserName(this.form.newName);
+            // 刷新页面
+            this.$router.go(0);
           }
         }).catch(err => {
           console.log(err)

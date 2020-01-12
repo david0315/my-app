@@ -41,13 +41,14 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        // console.log(res);
+        console.log(res);
         this.soilState = [];
         for (let i in res.data.data) {
           if (res.data.data[i].species == 'oil') {
             this.soilState.push(res.data.data[i]);
           }
         }
+        console.log(this.soilState);
         this.soilFlag = true;
       }).catch(err => {
         console.log(err)
@@ -56,11 +57,11 @@ export default {
   },
   activated() {
     this.getSoilState();
-    // 每5秒更新一次数据
+    // 每10秒更新一次数据
     this.update = setInterval(() => {
       console.log('更新数据！');
       this.getSoilState();
-    }, 5000);
+    }, 10000);
   },
   deactivated() {
     clearInterval(this.update);

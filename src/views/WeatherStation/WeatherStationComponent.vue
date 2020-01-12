@@ -83,9 +83,7 @@ export default {
             type: "line"
           }
         ]
-      },
-      // 定时器的名称
-      // update: null
+      }
     }
   },
   computed: {
@@ -183,16 +181,7 @@ export default {
   mounted() {
     this.activeDate = this.getNowDate();
     this.getChartData(this.info.fd_id, this.activeKey, this.activeDate);
-  },
-  // activated() {
-  //   // 每5秒更新一次数据
-  //   this.update = setInterval(() => {
-  //     this.getChartData(this.$store.state.activeId, this.activeKey, this.activeDate);
-  //   }, 5000);
-  // },
-  // deactivated() {
-  //   clearInterval(this.update);
-  // }
+  }
 }
 </script>
 

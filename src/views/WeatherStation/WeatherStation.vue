@@ -41,13 +41,14 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        // console.log(res);
+        console.log(res);
         this.weatherStationState = [];
         for (let i in res.data.data) {
           if (res.data.data[i].species == 'weather_station') {
             this.weatherStationState.push(res.data.data[i]);
           }
         }
+        console.log(this.weatherStationState);
         this.weatherStationFlag = true;
       }).catch(err => {
         console.log(err)
@@ -56,11 +57,11 @@ export default {
   },
   activated() {
     this.getWeatherStationState();
-    // 每5秒更新一次数据
+    // 每10秒更新一次数据
     this.update = setInterval(() => {
       console.log('更新数据！');
       this.getWeatherStationState();
-    }, 5000);
+    }, 10000);
   },
   deactivated() {
     clearInterval(this.update);

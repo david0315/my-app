@@ -7,8 +7,6 @@ export default new Vuex.Store({
   state: {
     // 用户信息
     userInfo: {
-      // 左侧菜单是否折叠
-      collapse: true,
       // 用户名称
       name: '',
       // 经纬度
@@ -23,6 +21,8 @@ export default new Vuex.Store({
     },
     // 其他用户信息
     othersInfo: [],
+    // 左侧菜单是否折叠
+    collapse: true,
     // 地图是否准备就绪
     mapFlag: false,
     // 监控是否准备就绪
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     },
     // 折叠/拉出左侧菜单
     collapseChage(state) {
-      state.userInfo.collapse = !state.userInfo.collapse
+      state.collapse = !state.collapse
     },
     // 地图准备就绪
     mapReady(state) {

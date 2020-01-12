@@ -52,6 +52,12 @@ const routes = [
       name: 'video',
       meta: { title: '现场监控' },
       component: () => import('../views/Video/Video.vue')
+    },
+    {
+      path: '/brain',
+      name: 'brain',
+      meta: { title: '智慧大脑' },
+      component: () => import('../views/IntellectualBrain/IntellectualBrain.vue')
     }]
   },
   {
