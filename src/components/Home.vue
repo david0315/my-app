@@ -51,6 +51,20 @@ export default {
         console.log(err)
       })
     },
+    // 获得用户的key和secret
+    getKey() {
+      this.axios({
+        url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.getmonitor',
+        params: {
+          token: localStorage.getItem('user_token')
+        }
+      }).then(res => {
+        // console.log(res);
+        this.getAccessToken(res.data.data[0].key, res.data.data[0].secret);
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     // 获得监控accessToken
     getAccessToken(key, secret) {
       this.axios({
@@ -92,7 +106,7 @@ export default {
   created() {
     this.getInfo();
     this.getId();
-    this.getAccessToken('1ed6d02d30c542649ab068d3d36b0ef2', 'ff817b069d5aaa4630c244e3324f1e0c');
+    this.getKey();
   }
 }
 

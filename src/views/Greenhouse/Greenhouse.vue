@@ -41,7 +41,7 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.greenhouseState = [];
         for (let i in res.data.data) {
           if (res.data.data[i].species == 'greenhouse') {

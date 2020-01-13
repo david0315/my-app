@@ -41,14 +41,14 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.soilState = [];
         for (let i in res.data.data) {
           if (res.data.data[i].species == 'oil') {
             this.soilState.push(res.data.data[i]);
           }
         }
-        console.log(this.soilState);
+        // console.log(this.soilState);
         this.soilFlag = true;
       }).catch(err => {
         console.log(err)

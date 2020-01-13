@@ -6,6 +6,9 @@
       </el-breadcrumb>
     </div>
     <div class="container">
+      正在施工中...
+    </div>
+    <!-- <div class="container">
       <el-table
       :data="tableData"
       :header-cell-style="{background:'#f5f7fa'}"
@@ -43,7 +46,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -100,14 +103,14 @@ export default {
     // 点击开启按钮
     open(scope) {
       // 按钮的十六进制码
-      // console.log(((scope.$index * 2 + 1)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
+      console.log(((scope.$index * 2 + 1)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
       this.buttonClick(this.$store.state.activeId, ((scope.$index * 2 + 1)<16?'0':'') + (scope.$index * 2 + 1).toString(16));
       this.getButtonState(this.$store.state.activeId);
     },
     // 点击关闭按钮
     close(scope) {
       // 按钮的十六进制码
-      // console.log(((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 2).toString(16));
+      console.log(((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 2).toString(16));
       this.buttonClick(this.$store.state.activeId, ((scope.$index * 2 + 2)<16?'0':'') + (scope.$index * 2 + 2).toString(16));
       this.getButtonState(this.$store.state.activeId);
     },
@@ -119,7 +122,7 @@ export default {
           fd_id: id
         }
       }).then(res => {
-        // console.log(res);
+        console.log(res);
         for (let i in this.tableData) {
           this.tableData[i].state = res.data.data[i];
         }
@@ -143,7 +146,7 @@ export default {
     }
   },
   activated() {
-    this.getButtonState(this.$store.state.activeId);
+    this.getButtonState();
   }
 }
 </script>

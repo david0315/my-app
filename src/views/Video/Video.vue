@@ -26,12 +26,7 @@
 </template>
 
 <script>
-import XVideo from './VideoComponent.vue'
-
 export default {
-  components: {
-    XVideo
-  },
   data() {
     return {
       activeIndex: 0,

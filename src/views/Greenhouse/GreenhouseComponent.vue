@@ -53,7 +53,7 @@ export default {
       // 激活的日期
       activeDate: "",
       // 激活的参数
-      activeKey: "temperature",
+      activeKey: "air_temperature",
       // 折线图的基础设置
       option: {
         tooltip: {
@@ -72,7 +72,7 @@ export default {
           data: []
         },
         yAxis: {
-          name: "温度",
+          name: "空气温度",
           type: "value",
           // y轴单位
           // axisLabel:{formatter:'{value} %'}
@@ -90,21 +90,33 @@ export default {
     // 温室环境参数
     soilState() {
       return [{
-        name: '温度',
-        key: 'temperature',
-        value: this.info.temperature
+        name: '空气温度',
+        key: 'air_temperature',
+        value: this.info.airTemperature
       },{
-        name: '湿度',
-        key: 'humidity',
-        value: this.info.humidity
+        name: '空气湿度',
+        key: 'air_humidity',
+        value: this.info.airHumidity
       },{
-        name: 'PH',
-        key: 'PH',
-        value: this.info.ph
+        name: '土壤温度',
+        key: 'soil_temperature',
+        value: this.info.soilTemperature
       },{
-        name: 'EC',
-        key: 'EC',
-        value: this.info.ec
+        name: '土壤湿度',
+        key: 'soil_humidity',
+        value: this.info.soilHumidity
+      },{
+        name: '光照度',
+        key: 'illuminance',
+        value: this.info.illuminance
+      },{
+        name: 'CO2浓度',
+        key: 'co2',
+        value: this.info.co2
+      },{
+        name: '土壤肥沃度',
+        key: 'soil_fertility',
+        value: this.info.soilFertility
       }]
     }
   },
@@ -115,6 +127,7 @@ export default {
       this.option.xAxis.data = [];
       this.option.series[0].data = [];
       this.axios({
+        // 这里填温室参数查询折线图的api
         url: "",
         params: {
           token: localStorage.getItem('user_token'),

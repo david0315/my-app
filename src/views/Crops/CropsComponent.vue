@@ -53,7 +53,7 @@ export default {
       // 激活的日期
       activeDate: "",
       // 激活的参数
-      activeKey: "temperature",
+      activeKey: "nitrogen",
       // 折线图的基础设置
       option: {
         tooltip: {
@@ -72,7 +72,7 @@ export default {
           data: []
         },
         yAxis: {
-          name: "温度",
+          name: "叶片氮含量",
           type: "value",
           // y轴单位
           // axisLabel:{formatter:'{value} %'}
@@ -90,21 +90,33 @@ export default {
     // 农作物生长参数
     soilState() {
       return [{
-        name: '温度',
-        key: 'temperature',
-        value: this.info.temperature
+        name: '叶片氮含量',
+        key: 'nitrogen',
+        value: this.info.nitrogen
       },{
-        name: '湿度',
-        key: 'humidity',
-        value: this.info.humidity
+        name: '光合作用速率',
+        key: 'photosynthesis',
+        value: this.info.photosynthesis
       },{
-        name: 'PH',
-        key: 'PH',
-        value: this.info.ph
+        name: '茎流',
+        key: 'stem_flow',
+        value: this.info.stemFlow
       },{
-        name: 'EC',
-        key: 'EC',
-        value: this.info.ec
+        name: '茎粗',
+        key: 'stem_diameter',
+        value: this.info.stemDiameter
+      },{
+        name: '株高',
+        key: 'plant_height',
+        value: this.info.plantHeight
+      },{
+        name: '株长',
+        key: 'plant_length',
+        value: this.info.plantLength
+      },{
+        name: '叶面积',
+        key: 'leaf_area',
+        value: this.info.leafArea
       }]
     }
   },
@@ -115,6 +127,7 @@ export default {
       this.option.xAxis.data = [];
       this.option.series[0].data = [];
       this.axios({
+        // 这里填农作物生长参数查询折线图的api
         url: "",
         params: {
           token: localStorage.getItem('user_token'),

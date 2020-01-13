@@ -41,14 +41,14 @@ export default {
           token: localStorage.getItem('user_token')
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.weatherStationState = [];
         for (let i in res.data.data) {
           if (res.data.data[i].species == 'weather_station') {
             this.weatherStationState.push(res.data.data[i]);
           }
         }
-        console.log(this.weatherStationState);
+        // console.log(this.weatherStationState);
         this.weatherStationFlag = true;
       }).catch(err => {
         console.log(err)
