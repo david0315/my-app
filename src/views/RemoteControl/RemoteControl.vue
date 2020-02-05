@@ -6,9 +6,6 @@
       </el-breadcrumb>
     </div>
     <div class="container">
-      正在施工中...
-    </div>
-    <!-- <div class="container">
       <el-table
       :data="tableData"
       :header-cell-style="{background:'#f5f7fa'}"
@@ -46,7 +43,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -115,11 +112,11 @@ export default {
       this.getButtonState(this.$store.state.activeId);
     },
     // 获得按钮的状态
-    getButtonState(id) {
+    getButtonState(token) {
       this.axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.askButton',
         params: {
-          fd_id: id
+          token: localStorage.getItem('user_token')
         }
       }).then(res => {
         console.log(res);
@@ -131,11 +128,11 @@ export default {
       })
     },
     // 按钮点击事件
-    buttonClick(id, cmd) {
+    buttonClick(token, cmd) {
       this.axios({
         url: 'http://60.190.23.22:8889/fertilizer_distributor/api/do.jhtml?router=appApiService.Button',
         params: {
-          fd_id: id,
+          token: localStorage.getItem('user_token'),
           cmd: 'e20204' + cmd
         }
       }).then(res => {
